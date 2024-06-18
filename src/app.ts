@@ -4,16 +4,17 @@ import express, { Application } from 'express';
 import globalErrorHandler from './app/middlewares/globalErrorhandler';
 import notFound from './app/middlewares/notFound';
 import router from './app/routes';
-
+import morgan from 'morgan';
 const app: Application = express();
 
 //parsers
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({ origin: ['http://localhost:5173'] }));
+app.use(morgan('tiny'));
 
 // application routes
-app.use('/api/v1', router);
+app.use('/api', router);
 
 app.use(globalErrorHandler);
 
