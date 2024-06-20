@@ -15,5 +15,12 @@ router.post(
   validateRequest(facilityValidations.createFacilityValidationSchema),
   FacilityControllers.createFacility,
 );
+router.put(
+  '/:id',
+  IsAuthenticate.auth,
+  IsAuthenticate.adminOnly,
+  validateRequest(facilityValidations.UpdatedFacilityValidationSchema),
+  FacilityControllers.updateFacility,
+);
 
 export const facilityRoutes = router;

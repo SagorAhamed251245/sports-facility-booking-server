@@ -11,6 +11,22 @@ const createFacilityIntoDB = async (payload: TFacility) => {
   }
   return user;
 };
+
+const UpdateFacilityIntoDB = async (
+  id: string,
+  payload: Partial<TFacility>,
+) => {
+  const facility = await Facility.findByIdAndUpdate(id, payload, {
+    new: true,
+  });
+  console.log('🚀 ~ facility:', facility);
+
+  if (!facility) {
+    throw new AppError(httpStatus.BAD_REQUEST, 'Failed to Updated facility');
+  }
+  return facility;
+};
 export const FacilityServices = {
   createFacilityIntoDB,
+  UpdateFacilityIntoDB,
 };
