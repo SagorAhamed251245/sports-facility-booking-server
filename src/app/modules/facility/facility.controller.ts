@@ -5,7 +5,6 @@ import { FacilityServices } from './facility.service';
 
 export const createFacility = catchAsync(async (req, res) => {
   const facilityData = req.body;
-  console.log('🚀 ~ createFacility ~ facilityData:', facilityData);
 
   const result = await FacilityServices.createFacilityIntoDB(facilityData);
 

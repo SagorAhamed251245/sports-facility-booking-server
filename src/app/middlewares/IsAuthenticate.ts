@@ -7,6 +7,7 @@ import User from '../modules/user/user.model';
 import { TUser } from '../modules/user/user.interface';
 import httpStatus from 'http-status';
 import AppError from '../errors/AppError';
+import config from '../config';
 
 declare global {
   namespace Express {
@@ -19,15 +20,19 @@ declare global {
 const auth = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const headers = req.header('Authorization');
+    // console.log('🚀 ~ auth ~ headers:', headers);
     if (!headers) {
       return next(new AppError(httpStatus.BAD_REQUEST, 'No Headers found'));
     }
     const token = headers.replace('Bearer ', '');
+    // console.log('🚀 ~ auth ~ token:', token);
+
     if (!token) {
       return next(new AppError(httpStatus.BAD_REQUEST, 'No token provided'));
     }
 
-    const decoded: any = jwt.verify(token, process.env.JWT_SECRET!);
+    const decoded: any = jwt.verify(token, config.jwt_access_secret!);
+
     const user = await User.findById(decoded._id).exec();
 
     if (!user) {

@@ -27,11 +27,12 @@ const loginAsPreUser = async (email: string, password: string) => {
   }
 
   if (!(await bcrypt.compare(password, user.password))) {
-    throw new AppError(httpStatus.UNAUTHORIZED, 'Invalid  password');
+    throw new AppError(httpStatus.UNAUTHORIZED, 'Invalid password');
   }
 
   const token = createToken(
-    { ...user, _id: JSON.stringify(user._id) },
+    { _id: user._id.toString(), role: user.role },
+    // Ensure _id is a string
     config.jwt_access_secret as string,
     config.jwt_access_expires_in as string,
   );
@@ -41,6 +42,7 @@ const loginAsPreUser = async (email: string, password: string) => {
     data: user,
   };
 };
+
 export const UserServices = {
   createUserIntoDB,
   loginAsPreUser,
