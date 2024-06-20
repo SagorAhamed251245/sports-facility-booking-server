@@ -41,9 +41,28 @@ const deletedFacility = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const getFacility = catchAsync(async (req, res) => {
+  const result = await FacilityServices.getFacilityFromDB();
+  if (result.length < 1) {
+    sendResponse(res, {
+      statusCode: 404,
+      success: false,
+      message: 'No Data Found',
+      data: result,
+    });
+  }
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Facilities retrieved successfully',
+    data: result,
+  });
+});
 
 export const FacilityControllers = {
   createFacility,
   updateFacility,
   deletedFacility,
+  getFacility,
 };

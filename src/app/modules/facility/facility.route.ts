@@ -28,5 +28,6 @@ router.delete(
   IsAuthenticate.adminOnly,
   FacilityControllers.deletedFacility,
 );
+router.get('/', FacilityControllers.getFacility);
 
 export const facilityRoutes = router;

@@ -43,8 +43,18 @@ const deleteFacilityIntoDB = async (id: string) => {
   }
   return deleteFacility;
 };
+
+const getFacilityFromDB = async () => {
+  const facility = await Facility.find();
+
+  if (!facility) {
+    throw new AppError(httpStatus.BAD_REQUEST, 'Failed to Find Facility ');
+  }
+  return facility;
+};
 export const FacilityServices = {
   createFacilityIntoDB,
   UpdateFacilityIntoDB,
   deleteFacilityIntoDB,
+  getFacilityFromDB,
 };

@@ -9,5 +9,9 @@ const facilitySchema: Schema<TFacility> = new Schema({
   isDeleted: { type: Boolean, default: false },
 });
 
+facilitySchema.pre('find', function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
 const Facility = mongoose.model<TFacility>('Facility', facilitySchema);
 export default Facility;
