@@ -22,5 +22,11 @@ router.put(
   validateRequest(facilityValidations.UpdatedFacilityValidationSchema),
   FacilityControllers.updateFacility,
 );
+router.delete(
+  '/:id',
+  IsAuthenticate.auth,
+  IsAuthenticate.adminOnly,
+  FacilityControllers.deletedFacility,
+);
 
 export const facilityRoutes = router;

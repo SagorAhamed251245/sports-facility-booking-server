@@ -19,14 +19,32 @@ const UpdateFacilityIntoDB = async (
   const facility = await Facility.findByIdAndUpdate(id, payload, {
     new: true,
   });
-  console.log('🚀 ~ facility:', facility);
 
   if (!facility) {
     throw new AppError(httpStatus.BAD_REQUEST, 'Failed to Updated facility');
   }
   return facility;
 };
+
+const deleteFacilityIntoDB = async (id: string) => {
+  const deleteFacility = await Facility.findByIdAndUpdate(
+    id,
+    { isDeleted: true },
+    {
+      new: true,
+    },
+  );
+
+  if (!deleteFacility) {
+    throw new AppError(
+      httpStatus.BAD_REQUEST,
+      'Failed to delete Facility deleteFacility',
+    );
+  }
+  return deleteFacility;
+};
 export const FacilityServices = {
   createFacilityIntoDB,
   UpdateFacilityIntoDB,
+  deleteFacilityIntoDB,
 };
