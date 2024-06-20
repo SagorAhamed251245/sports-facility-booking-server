@@ -8,16 +8,12 @@ import { createToken } from '../../utils/createToken';
 import config from '../../config';
 
 const createUserIntoDB = async (payload: TUser) => {
-  try {
-    const user = await User.create(payload);
+  const user = await User.create(payload);
 
-    if (!user) {
-      throw new AppError(httpStatus.BAD_REQUEST, 'Failed to create user');
-    }
-    return user;
-  } catch (err: any) {
-    throw new Error(err);
+  if (!user) {
+    throw new AppError(httpStatus.BAD_REQUEST, 'Failed to create user');
   }
+  return user;
 };
 
 const loginAsPreUser = async (email: string, password: string) => {
