@@ -87,9 +87,31 @@ const cancelBookingByUser = catchAsync(async (req, res) => {
   });
 });
 
+export const checkAvailability = catchAsync(async (req, res) => {
+  const { date } = req.query;
+
+  const result = await BookingServices.checkAvailabilityBookingsDB({
+    date: date as string,
+  });
+  if (result.length < 1) {
+    sendResponse(res, {
+      statusCode: 404,
+      success: false,
+      message: 'No Data Found',
+      data: result,
+    });
+  }
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Availability checked successfully',
+    data: result,
+  });
+});
 export const BookingControllers = {
   createBooking,
   getAllBookings,
   getUserBookings,
   cancelBookingByUser,
+  checkAvailability,
 };

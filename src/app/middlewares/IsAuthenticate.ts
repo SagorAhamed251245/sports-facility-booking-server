@@ -8,6 +8,7 @@ import { TUser } from '../modules/user/user.interface';
 import httpStatus from 'http-status';
 import AppError from '../errors/AppError';
 import config from '../config';
+import sendResponse from '../utils/sendResponse';
 
 declare global {
   namespace Express {
@@ -48,14 +49,22 @@ const auth = async (req: Request, res: Response, next: NextFunction) => {
 
 const adminOnly = (req: Request, res: Response, next: NextFunction) => {
   if (!req.user || req.user.role !== 'admin') {
-    return next(new AppError(httpStatus.FORBIDDEN, 'Access denied'));
+    sendResponse(res, {
+      success: false,
+      statusCode: 401,
+      message: 'You have no access to this route',
+    });
   }
   next();
 };
 
 const userOnly = (req: Request, res: Response, next: NextFunction) => {
   if (!req.user || req.user.role !== 'user') {
-    return next(new AppError(httpStatus.FORBIDDEN, 'Access denied'));
+    sendResponse(res, {
+      success: false,
+      statusCode: 401,
+      message: 'You have no access to this route',
+    });
   }
   next();
 };

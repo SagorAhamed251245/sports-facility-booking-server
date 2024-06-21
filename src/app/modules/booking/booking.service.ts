@@ -76,9 +76,24 @@ const cancelBookingFromBookingDB = async (id: string) => {
   }
   return booking;
 };
+
+export const checkAvailabilityBookingsDB = async (payload: {
+  date?: string;
+}) => {
+  const { date } = payload;
+  const bookingDate = date || new Date().toISOString().split('T')[0];
+
+  const availabilityBooking = await Booking.find(
+    { date: bookingDate },
+    { startTime: 1, endTime: 1, _id: 0 },
+  );
+
+  return availabilityBooking;
+};
 export const BookingServices = {
   createNewBookingIntoDB,
   getAllBookingsFromDB,
   getUserBookingsFromDB,
   cancelBookingFromBookingDB,
+  checkAvailabilityBookingsDB,
 };
