@@ -20,4 +20,10 @@ router.get(
   IsAuthenticate.adminOnly,
   BookingControllers.getAllBookings,
 );
+router.get(
+  '/user',
+  IsAuthenticate.auth,
+  IsAuthenticate.userOnly,
+  BookingControllers.getUserBookings,
+);
 export const BookingRoutes = router;

@@ -49,8 +49,16 @@ const createNewBookingIntoDB = async (
 };
 
 const getAllBookingsFromDB = async () => {
-  const bookings = await Booking.find();
+  const bookings = await Booking.find().populate('facility').populate('user');
 
+  if (!bookings) {
+    throw new AppError(httpStatus.BAD_REQUEST, 'Failed to Find Bookings ');
+  }
+  return bookings;
+};
+
+const getUserBookingsFromDB = async (userId: string | Types.ObjectId) => {
+  const bookings = await Booking.find({ user: userId }).populate('facility');
   if (!bookings) {
     throw new AppError(httpStatus.BAD_REQUEST, 'Failed to Find Bookings ');
   }
@@ -59,4 +67,5 @@ const getAllBookingsFromDB = async () => {
 export const BookingServices = {
   createNewBookingIntoDB,
   getAllBookingsFromDB,
+  getUserBookingsFromDB,
 };

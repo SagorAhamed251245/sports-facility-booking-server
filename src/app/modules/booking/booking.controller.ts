@@ -29,6 +29,7 @@ const createBooking = catchAsync(async (req, res) => {
 
 const getAllBookings = catchAsync(async (req, res) => {
   const result = await BookingServices.getAllBookingsFromDB();
+
   if (result.length < 1) {
     sendResponse(res, {
       statusCode: 404,
@@ -46,7 +47,35 @@ const getAllBookings = catchAsync(async (req, res) => {
   });
 });
 
+const getUserBookings = catchAsync(async (req, res) => {
+  if (!req.user || !req.user._id) {
+    return sendResponse(res, {
+      statusCode: httpStatus.UNAUTHORIZED,
+      success: false,
+      message: 'User not authenticated',
+    });
+  }
+  const userId = req.user._id;
+
+  const result = await BookingServices.getUserBookingsFromDB(userId);
+
+  if (result.length < 1) {
+    sendResponse(res, {
+      statusCode: 404,
+      success: false,
+      message: 'No Data Found',
+      data: result,
+    });
+  }
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Bookings retrieved successfully',
+    data: result,
+  });
+});
 export const BookingControllers = {
   createBooking,
   getAllBookings,
+  getUserBookings,
 };
