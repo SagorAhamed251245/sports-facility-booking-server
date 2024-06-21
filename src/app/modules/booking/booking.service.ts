@@ -64,8 +64,21 @@ const getUserBookingsFromDB = async (userId: string | Types.ObjectId) => {
   }
   return bookings;
 };
+
+const cancelBookingFromBookingDB = async (id: string) => {
+  const booking = await Booking.findByIdAndUpdate(
+    id,
+    { isBooked: 'canceled' },
+    { new: true },
+  ).populate('facility');
+  if (!booking) {
+    throw new AppError(httpStatus.NOT_FOUND, 'Booking data not found');
+  }
+  return booking;
+};
 export const BookingServices = {
   createNewBookingIntoDB,
   getAllBookingsFromDB,
   getUserBookingsFromDB,
+  cancelBookingFromBookingDB,
 };

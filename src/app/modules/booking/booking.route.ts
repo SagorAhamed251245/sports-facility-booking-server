@@ -26,4 +26,16 @@ router.get(
   IsAuthenticate.userOnly,
   BookingControllers.getUserBookings,
 );
+router.get(
+  '/user',
+  IsAuthenticate.auth,
+  IsAuthenticate.userOnly,
+  BookingControllers.getUserBookings,
+);
+router.delete(
+  '/:id',
+  IsAuthenticate.auth,
+  IsAuthenticate.userOnly,
+  BookingControllers.cancelBookingByUser,
+);
 export const BookingRoutes = router;
