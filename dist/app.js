@@ -18,6 +18,9 @@ app.use((0, cors_1.default)({ origin: ['http://localhost:5173'] }));
 app.use((0, morgan_1.default)('tiny'));
 // application routes
 app.use('/api', routes_1.default);
+app.get('/', (req, res) => {
+    res.send('Hello World!');
+});
 app.use(globalErrorhandler_1.default);
 //Not Found
 app.use(notFound_1.default);
