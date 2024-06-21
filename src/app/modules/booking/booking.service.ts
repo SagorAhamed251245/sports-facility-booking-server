@@ -48,6 +48,15 @@ const createNewBookingIntoDB = async (
   return result;
 };
 
+const getAllBookingsFromDB = async () => {
+  const bookings = await Booking.find();
+
+  if (!bookings) {
+    throw new AppError(httpStatus.BAD_REQUEST, 'Failed to Find Bookings ');
+  }
+  return bookings;
+};
 export const BookingServices = {
   createNewBookingIntoDB,
+  getAllBookingsFromDB,
 };

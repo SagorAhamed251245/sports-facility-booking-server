@@ -26,6 +26,27 @@ const createBooking = catchAsync(async (req, res) => {
     data: booking,
   });
 });
+
+const getAllBookings = catchAsync(async (req, res) => {
+  const result = await BookingServices.getAllBookingsFromDB();
+  if (result.length < 1) {
+    sendResponse(res, {
+      statusCode: 404,
+      success: false,
+      message: 'No Data Found',
+      data: result,
+    });
+  }
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Bookings retrieved successfully',
+    data: result,
+  });
+});
+
 export const BookingControllers = {
   createBooking,
+  getAllBookings,
 };
