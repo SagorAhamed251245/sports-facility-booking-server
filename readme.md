@@ -40,7 +40,7 @@ JWT_REFRESH_EXPIRES_IN=7d
 - Using npm:
   npm run start:dev
 
-  The server will start on http://localhost:3000.
+###### The server will start on http://localhost:3000.
 
 ## API Endpoints
 
@@ -50,25 +50,33 @@ JWT_REFRESH_EXPIRES_IN=7d
 
 #### Sample Endpoints:
 
-###### User Routes
+##### User Routes
 
-User Sign Up: POST /api/auth/signup
-User Login: POST /api/auth/login
+###### User Sign Up: POST /api/auth/signup
 
-###### Facility Routes
+###### User Login: POST /api/auth/login
 
-Create a Facility (Admin Only) Route: POST /api/facility
-Update a Facility (Admin Only) Route: PUT /api/facility/:id
-Delete a Facility - Soft Delete (Admin Only) Route: DELETE /api/facility/:id
-Get All Facilities Route: GET /api/facility
+##### Facility Routes
 
-###### Booking Routes
+###### Create a Facility (Admin Only) Route: POST /api/facility
 
-Check Availability Check the availability of time slots for booking on a specific date. Route: GET /api/check-availability
-Create a Booking (User Only) Route: POST /api/bookings
-View All Bookings (Admin Only) Route: GET /api/bookings
-View Bookings by User (User Only) Route: GET /api/bookings/user
-Cancel a Booking (User Only) Route: DELETE /api/bookings/:id
+###### Update a Facility (Admin Only) Route: PUT /api/facility/:id
+
+###### Delete a Facility - Soft Delete (Admin Only) Route: DELETE /api/facility/:id
+
+###### Get All Facilities Route: GET /api/facility
+
+##### Booking Routes
+
+###### Check Availability Route: GET /api/check-availability
+
+###### Create a Booking (User Only) Route: POST /api/bookings
+
+###### View All Bookings (Admin Only) Route: GET /api/bookings
+
+###### View Bookings by User (User Only) Route: GET /api/bookings/user
+
+###### Cancel a Booking (User Only) Route: DELETE /api/bookings/:id
 
 ### live server: https://sports-facility-booking-server.vercel.app/
 
